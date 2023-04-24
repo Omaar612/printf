@@ -9,7 +9,7 @@ void write_buff(char buff[], int *index);
 
 int _printf(const char *format, ...)
 {
-int i, j = 0, k = 0, s = 0, index = 0;
+int i, j = 0, k = 0, s = 0, index;
 int flags, width, precision, size;
 char buff[index];
 va_list ap;
