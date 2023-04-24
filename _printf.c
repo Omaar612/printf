@@ -9,9 +9,9 @@ void write_buff(char buff[], int *index);
 
 int _printf(const char *format, ...)
 {
-int i, j = 0, k = 0, s = 0, index;
+int i, j = 0, k = 0, s = 0;
 int flags, width, precision, size;
-char buff[index];
+char buff[INDEX];
 va_list ap;
 if (format == NULL)
 	return (-1);
@@ -21,7 +21,7 @@ for (i = 0; buff[s] != '\0' && format; i++)
 if (format[i] != '%')
 {
 buff[s++] = format[i];
-if (index == s)
+if (INDEX == s)
 {
 	write_buff(buff, &s);
 	j++;
