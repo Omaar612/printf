@@ -35,24 +35,24 @@ struct fmt
 typedef struct fmt fmt_t;
 int _printf(const char *format, ...);
 int handle_print(const char *fmt, int *i,
-va_list ap, char buff[], int flags, int width, int precision, int size);
+va_list list, char buffer[], int flags, int width, int precision, int size);
 
 /* FUNCTIONS */
 
 /* Funtions to print chars and strings */
-int print_char(va_list types, char buffer[],
+int print_char(va_list ap, char buff[],
 int flags, int width, int precision, int size);
-int print_string(va_list types, char buffer[],
+int print_string(va_list ap, char buff[],
 int flags, int width, int precision, int size);
-int print_percent(va_list types, char buffer[],
+int print_percent(va_list ap, char buff[],
 int flags, int width, int precision, int size);
 
 /* Functions to print numbers */
-int print_int(va_list types, char buffer[],
+int print_int(va_list ap, char buff[],
 int flags, int width, int precision, int size);
-int print_binary(va_list types, char buffer[],
+int print_binary(va_list ap, char buff[],
 int flags, int width, int precision, int size);
-int print_unsigned(va_list types, char buffer[],
+int print_unsigned(va_list ap, char buff[],
 int flags, int width, int precision, int size);
 int print_octal(va_list types, char buffer[],
 int flags, int width, int precision, int size);
