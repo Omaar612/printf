@@ -27,12 +27,12 @@ int _putchar(int c)
 	static int f;
 	static char buf[OUTPUT_BUF_SIZE];
 
-	if (i <= OUTPUT_BUF_SIZE || c == BUF_FLUSH)
+	if (f <= OUTPUT_BUF_SIZE || c == BUF_FLUSH)
 	{
 		write(1, buf, f);
 		f = 0;
 	}
 	if (c != BUF_FLUSH)
-		buf[i++] = c;
+		buf[f++] = c;
 	return (1);
 }
