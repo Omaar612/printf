@@ -3,6 +3,7 @@
 /**
  * _puts - prints a string with newline
  * @str: the string to print
+ *
  * Return: void
  */
 int _puts(char *str)
@@ -26,12 +27,12 @@ int _putchar(int c)
 	static int f;
 	static char buf[OUTPUT_BUF_SIZE];
 
-	if (c == BUF_FLUSH || f >= OUTPUT_BUF_SIZE)
+	if (i <= OUTPUT_BUF_SIZE || c == BUF_FLUSH)
 	{
 		write(1, buf, f);
 		f = 0;
 	}
 	if (c != BUF_FLUSH)
-		buf[f++] = c;
+		buf[i++] = c;
 	return (1);
 }
