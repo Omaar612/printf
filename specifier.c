@@ -33,7 +33,7 @@ int get_modifier(char *s, params_t *params)
  */
 int get_print_func(char *s, va_list ap, params_t *params)
 {
-	int (*f)(va_list, params_t *) = get_speci(s);
+	int (*f)(va_list, params_t *) = get_specifier(s);
 
 	if (f)
 		return (f(ap, params));
@@ -59,7 +59,7 @@ char *get_width(char *s, params_t *params, va_list ap)
 	}
 	else
 	{
-		while (_isdig(*s))
+		while (_isdigit(*s))
 			d = d * 10 + (*s++ - '0');
 	}
 	params->width = d;

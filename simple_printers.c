@@ -7,7 +7,7 @@
  *
  * Return: ...
  */
-int print_rot13(va_list ap, para_t *params)
+int print_rot13(va_list ap, params_t *params)
 {
 char a[] =
 "NOPQRSTUVWXYZABCDEFGHIJKLM      nopqrstuvwxyzabcdefghijklm";
@@ -73,7 +73,7 @@ j++;
 s++;
 }
 for (; j > 0; j--, s--)
-i += _putchar(*st);
+i += _putchar(*s);
 }
 return (i);
 }
