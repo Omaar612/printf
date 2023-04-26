@@ -1,59 +1,49 @@
 #include "main.h"
-void write_buff(char buff[], int *index);
 
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
+ * _printf - ...
+ * @format: ...
+ *
+ * Return: ...
  */
-
 int _printf(const char *format, ...)
 {
-int i, j = 0, k = 0, s = 0;
-int flags, width, precision, size;
-char buff[INDEX];
-va_list ap;
-if (format == NULL)
-	return (-1);
-va_start(ap, format);
-for (i = 0; buff[s] != '\0' && format; i++)
-{
-if (format[i] != '%')
-{
-buff[s++] = format[i];
-if (INDEX == s)
-{
-	write_buff(buff, &s);
-	j++;
-}
-}
-else
-{
-write_buff(buff, &s);
-flags = get_flags(format, &i);
-width = get_width(format, &i, ap);
-precision = get_precision(format, &i, ap);
-size = get_size(format, &i);
-++i;
-k = handle_print(format, &i, ap, buff,
-flags, width, precision, size);
-if (k == -1)
-return (-1);
-j += k;
-}
-}
-va_end(ap);
-return (j);
-}
+	va_list a;
+	int i = 0;
+	char *c, *s;
+	para poo = PARA_I;
 
-/**
- * write_buff - Prints the contents of the buffer.
- * @buff: Array of chars.
- * @index: Index of the next char to be added.
- */
-void write_buff(char buff[], int *index)
-{
-if (*index > 0)
-write(1, &buff[0], *index);
-*index = 0;
+	va_start(a, format);
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (c = (char *)format; *c; c++)
+	{
+		i_par(&poo, a);
+		if (*c != '%')
+		{
+			i += _putchar(*c);
+			continue;
+		}
+		s = c;
+		c++;
+		while (g_f(c, &poo))
+		{
+			c++;
+		}
+		c = g_w(c, &poo, a);
+		c = g_pre(c, &poo, a);
+		if (g_mod(c, &poo))
+			c++;
+		if (!get_speci(c))
+			i += pr_fr_to(s, c,
+				poo.l_modifier || poo.h_modifier ? c - 1 : 0);
+		else
+			i += g_p_func(c, a, &poo);
+	}
+	_putchar(B_F);
+	va_end(a);
+	return (i);
 }
