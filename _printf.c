@@ -1,38 +1,49 @@
 #include "main.h"
 
 /**
- * _puts - prints a string with newline
- * @str: the string to print
+ * _printf - prints anything
+ * @format: the format string
  *
- * Return: void
+ * Return: number of bytes printed
  */
-int _puts(char *str)
+int _printf(const char *format, ...)
 {
-	char *a = str;
+	int sum = 0;
+	va_list ap;
+	char *p, *start;
+	params_t params = PARAMS_INIT;
 
-	while (*str)
-		_putchar(*str++);
-	return (str - a);
-}
+	va_start(ap, format);
 
-/**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int _putchar(int c)
-{
-	static int f;
-	static char buf[OUTPUT_BUF_SIZE];
-
-	if (f <= OUTPUT_BUF_SIZE || c == BUF_FLUSH)
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = (char *)format; *p; p++)
 	{
-		write(1, buf, f);
-		f = 0;
+		init_params(&params, ap);
+		if (*p != '%')
+		{
+			sum += _putchar(*p);
+			continue;
+		}
+		start = p;
+		p++;
+		while (get_flag(p, &params)) /* while char at p is flag char */
+		{
+			p++; /* next char */
+		}
+		p = get_width(p, &params, ap);
+		p = get_precision(p, &params, ap);
+		if (get_modifier(p, &params))
+			p++;
+		if (!get_specifier(p))
+			sum += print_from_to(start, p,
+				params.l_modifier || params.h_modifier ? p - 1 : 0);
+		else
+			sum += get_print_func(p, ap, &params);
 	}
-	if (c != BUF_FLUSH)
-		buf[f++] = c;
-	return (1);
+	_putchar(BUF_FLUSH);
+	va_end(ap);
+	return (sum);
 }
